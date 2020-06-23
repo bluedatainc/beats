@@ -92,5 +92,16 @@ func flattenMetadata(in common.MapStr) common.MapStr {
 		}
 	}
 
+	rawLabels, err := in.GetValue("labels")
+	if err != nil {
+		return out
+	}
+
+	labels, ok := rawLabels.(common.MapStr)
+	if !ok{
+		return out
+	}
+	out[resource+"_labels"] = labels
+
 	return out
 }
